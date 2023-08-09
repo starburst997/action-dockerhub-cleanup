@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "package": "ncc build"
+    "package": "export SET NODE_OPTIONS=--openssl-legacy-provider && ncc build"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",

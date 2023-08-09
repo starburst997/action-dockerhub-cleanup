@@ -12,8 +12,8 @@ const numberOfTagsToKeep = parseInt(core.getInput("keep-last"));
 const forceFullCleanup = core.getInput("force-full-cleanup");
 
 const token = core.getInput("token");
-const username = core.getInput("username");
-const password = core.getInput("password");
+const username = dockerhubUser; //core.getInput("username");
+const password = token; //core.getInput("password");
 
 // logs
 core.startGroup("Inputs");
@@ -48,12 +48,22 @@ const dockerhubAPI = axios.create({
 
 dockerhubAPI.interceptors.request.use(
   async (config) => {
+    core.startGroup("Bearer");
+
     if (username && password) {
       const token = await getAPIToken(username, password);
+
+      core.info(`Using username / password: ${token}`);
+      
       config.headers.Authorization = `Bearer ${token}`;
     } else {
+
+      core.info(`Using token: ${token}`);
+
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    core.endGroup();
 
     return config;
   },
