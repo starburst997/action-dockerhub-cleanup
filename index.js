@@ -48,22 +48,22 @@ const dockerhubAPI = axios.create({
 
 dockerhubAPI.interceptors.request.use(
   async (config) => {
-    core.startGroup("Bearer");
+    //core.startGroup("Bearer");
 
     if (username && password) {
       const token = await getAPIToken(username, password);
 
-      core.info(`Using username / password: ${token}`);
+      //core.info(`Using username / password: ${token}`);
       
       config.headers.Authorization = `Bearer ${token}`;
     } else {
 
-      core.info(`Using token: ${token}`);
+      //core.info(`Using token: ${token}`);
 
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    core.endGroup();
+    //core.endGroup();
 
     return config;
   },
